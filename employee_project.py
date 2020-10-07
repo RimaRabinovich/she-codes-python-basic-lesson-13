@@ -40,7 +40,7 @@ def main():
             print("\nReport 'Monthly_attendance.txt' was generated.")
         elif ans == 'h':
             att.generate_report_late_att()
-            print('\nReport \'late_attendance.txt\' was generated.')
+            print("\nReport 'late_attendance.txt' was generated.")
         elif ans == 'i':
             break
 
