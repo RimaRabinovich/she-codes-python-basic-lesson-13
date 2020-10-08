@@ -89,7 +89,7 @@ def add_employee_from_file():
     # adds employees from csv file to the employee list
         print('\n~~Add employee from file~~')
         try:
-            file = input("Insert employees to add CSV file: ")
+            file = input("Insert CSV file that contains employees to add : ")
             with open(file, mode='r') as file:
                 csv_reader = csv.reader(file, delimiter = ',')
                 line_count = 0
@@ -151,7 +151,7 @@ def delete_employee_from_file():
     print("\n~~Delete employee from file~~")
     while True:
         try:
-            del_emp = input("Insert employees to delete CSV File: ")
+            del_emp = input("Insert CSV File that contains employees to delete : ")
             # a list for the employee file to be deleted
             emp_to_delete = list()
             # a list for existing employees
@@ -187,11 +187,4 @@ def delete_employee_from_file():
                     break
 
 
-def main():
-    empty_employee_file()
-    add_employee_from_file()
-    delete_employee_manually()
-    delete_employee_from_file()
 
-if __name__ == '__main__':
-    main()

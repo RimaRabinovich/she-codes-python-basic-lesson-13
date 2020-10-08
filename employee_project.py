@@ -6,9 +6,9 @@ def main():
     while True:
         print("\nWhat would you like to do? \n"
               "a. Add employee manually\n"
-              "b. Add employee from file\n"
-              "c. Delete employee manually\n"
-              "d. Delete employee from file\n"
+              "b. Add employee from file - insert CSV file\n"
+              "c. Delete employee manually - insert employee's ID/name\n"
+              "d. Delete employee from file - insert CSV file\n"
               'e. Mark Attendance\n'
               'f. Generate attendance report of an employee\n'
               'g. Generate attendance report of all employees in the current month\n'
@@ -34,7 +34,6 @@ def main():
             print("\nattendance was marked at 'attendance_file.txt'.")
         elif ans == 'f':
             att.generate_report_of_employee()
-            print("\nReport 'attendance_report.txt' was generated.")
         elif ans == 'g':
             att.generate_report_current_month()
             print("\nReport 'Monthly_attendance.txt' was generated.")

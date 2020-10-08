@@ -49,6 +49,8 @@ def generate_report_of_employee():
     while True:
         try:
             user_id = input("Enter employee's ID: ")
+            user_att_file = 'attendance_file' + '_' + user_id + '.txt'
+            print(user_att_file)
             with open('attendance_file.txt','r') as readFile:
                 att_list = readFile.readlines()
             # a list to store all employees attendance
@@ -63,9 +65,10 @@ def generate_report_of_employee():
             print('ERROR: There is no such ID in the employee file.')
         else:
             # write report file from the created list of a spesific employee
-            with open('attendance_report.txt','w') as writeFile:
+            with open(user_att_file,'w') as writeFile:
                 for i in emp_att:
                     writeFile.write(i)
+                print("\nReport '{}' was generated.".format(user_att_file))
                 break
 
 def generate_report_current_month():
@@ -117,28 +120,4 @@ def generate_report_late_att():
                 writeFile.write(i+'\n')
 
 
-def main():
-    while True:
-        print('\nWhat would you like to do?\n'
-              'a. Mark Attendance\n'
-              'b. Generate attendance report of an employee\n'
-              'c. Generate attendance report of all employees in the current month\n'
-              'd. Generate attendance report of all employees who were late (after 09:30)\n'
-              'e. Exit program')
-        ans = input("\nYou're choice: ")
-        if ans == 'a':
-            user_id, user_name, user_date, user_time = search_id_in_file()
-            with open('attendance_file.txt','a') as attFile:
-                attFile.write(user_id+' '+user_name+' '+user_date+' '+user_time+'\n')
-        if ans == 'b':
-            generate_report_of_employee()
-        if ans == 'c':
-            generate_report_current_month()
-        if ans == 'd':
-            generate_report_late_att()
-        if ans == 'd':
-            break
 
-
-if __name__ == '__main__':
-    main()
