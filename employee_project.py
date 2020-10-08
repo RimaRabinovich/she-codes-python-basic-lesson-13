@@ -36,10 +36,8 @@ def main():
             att.generate_report_of_employee()
         elif ans == 'g':
             att.generate_report_current_month()
-            print("\nReport 'Monthly_attendance.txt' was generated.")
         elif ans == 'h':
             att.generate_report_late_att()
-            print("\nReport 'late_attendance.txt' was generated.")
         elif ans == 'i':
             break
 
