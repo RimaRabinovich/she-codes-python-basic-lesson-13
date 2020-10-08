@@ -177,6 +177,7 @@ def delete_employee_manually():
 def delete_employee_from_file():
     # a function to delete employees from file with a csv file
     print("\n~~Delete employee from file~~")
+    deleted = 0
     while True:
         try:
             del_emp = input("Insert CSV File that contains employees to delete : ")
@@ -205,14 +206,19 @@ def delete_employee_from_file():
                                 # checks if employees id to be deleted matches the existing employees - if so, delete
                                 if field == i[0]:
                                     emp_list.remove(row)
+                                    deleted += 1
+            if deleted == 0:
+                print("\nNothing was deleted, the employees to be deleted don't exist in 'employee_file.csv'\n")
+                break
         except FileNotFoundError:
-            print("ERROR: There's no such file")
+            print("\nERROR: There's no such file\n")
         else:
             # rewrite employee file
             with open('employee_file.csv', 'w') as writeFile:
                     writer = csv.writer(writeFile)
                     writer.writerows(emp_list)
-                    break
+            print("\nemployee was deleted, look at 'employee_file.csv'.\n")
+            break
 
 
 

@@ -26,7 +26,6 @@ def main():
             print("\nemployee was deleted, look at 'employee_file.csv'.")
         elif ans == 'd':
             adl.delete_employee_from_file()
-            print("\nemployee was deleted, look at 'employee_file.csv'.")
         elif ans == 'e':
             user_id, user_name, user_date, user_time = att.search_id_in_file()
             with open('attendance_file.txt','a') as attFile:
