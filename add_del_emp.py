@@ -33,11 +33,33 @@ class NoSuchEmployee(Exception):
     def __str__(self):
         return('There is no such Name/ID')
 
+class IDalreadyInFile(Exception):
+    # error to be raised when ID already exists in the employee file
+    def __str__(self):
+        return('ID already exists in the employee file')
+
 def empty_employee_file():
     #creates an empty csv file with the column names
     with open('employee_file.csv', mode='w') as employee_file:
         employee_writer = csv.writer(employee_file, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
         employee_writer.writerow(['Employee ID', 'Employee Name', "Employee's Phone", "Employee's Age"])
+
+def check_if_id_in_file(user_id):
+    lines = list()
+    with open('employee_file.csv', 'r') as readFile:
+        reader = csv.reader(readFile)
+        for row in reader:
+            # skip empty rows
+            if row == []:
+                continue
+            else:
+                lines.append(row)
+                # check if employee's id are equal to user input
+                for field in row:
+                    if field == user_id:
+                        return True
+                    else:
+                        continue
 
 def add_employee_manually():
     # a function to add employee to employee file
@@ -47,8 +69,12 @@ def add_employee_manually():
             emp_id = input("Enter employye's ID: ")
             if emp_id.isdigit() == False or len(emp_id) != 9:
                 raise ID9Digits()
+            if check_if_id_in_file(emp_id) == True:
+                raise IDalreadyInFile()
         except ID9Digits:
-            print('ERROR: ID must be 9 digits, Try again')
+            print('\nERROR: ID must be 9 digits, Try again\n')
+        except IDalreadyInFile:
+            print("\nERROR: ID already exists in 'employee_file.csv'\n")
         else:
             break
     while True:
@@ -101,6 +127,8 @@ def add_employee_from_file():
                     else:
                         # create employee object
                         new_employee = Employee(row[0],row[1],row[2],row[3])
+                        if check_if_id_in_file(row[0]) == True:
+                            continue
                         # add employee to employee file
                         with open('employee_file.csv', mode='a+') as employee_file:
                             employee_writer = csv.writer(employee_file, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
@@ -124,7 +152,7 @@ def delete_employee_manually():
             with open('employee_file.csv', 'r') as readFile:
                 reader = csv.reader(readFile)
                 for row in reader:
-                    #slip empty rows
+                    #skip empty rows
                     if row == []:
                         continue
                     else:
