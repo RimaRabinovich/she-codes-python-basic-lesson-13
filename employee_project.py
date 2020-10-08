@@ -17,20 +17,15 @@ def main():
         ans = input("You're choice: ")
         if ans == 'a':
             adl.add_employee_manually()
-            print("\nemployee was added, look at 'employee_file.csv'.")
         elif ans == 'b':
             adl.add_employee_from_file()
             print("\nemployee was added, look at 'employee_file.csv'.")
         elif ans == 'c':
             adl.delete_employee_manually()
-            print("\nemployee was deleted, look at 'employee_file.csv'.")
         elif ans == 'd':
             adl.delete_employee_from_file()
         elif ans == 'e':
-            user_id, user_name, user_date, user_time = att.search_id_in_file()
-            with open('attendance_file.txt','a') as attFile:
-                attFile.write(user_id+' '+user_name+' '+user_date+' '+user_time+'\n')
-            print("\nattendance was marked at 'attendance_file.txt'.")
+            att.mark_attendance()
         elif ans == 'f':
             att.generate_report_of_employee()
         elif ans == 'g':

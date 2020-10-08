@@ -110,6 +110,7 @@ def add_employee_manually():
     with open('employee_file.csv', mode='a+') as employee_file:
         employee_writer = csv.writer(employee_file, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
         employee_writer.writerow([employee.employee_id, employee.name, employee.phone, employee.age])
+    print("\nemployee was added, look at 'employee_file.csv'.")
 
 def add_employee_from_file():
     # adds employees from csv file to the employee list
@@ -135,7 +136,7 @@ def add_employee_from_file():
                             employee_writer.writerow([new_employee.employee_id, new_employee.name, new_employee.phone, new_employee.age])
                         line_count += 1
         except FileNotFoundError:
-            print("ERROR: There's no such file : {}".format(file))
+            print("\nERROR: There's no such file : {}".format(file))
         # when a file doesn't act like csv file
         except IndexError:
             print("ERROR: Something is wrong, Please check your file. \neach employee mast have: ID, Name, Phone and Age with a delimiter of ','.")
@@ -166,13 +167,14 @@ def delete_employee_manually():
             if count == 0:
                 raise NoSuchEmployee()
         except NoSuchEmployee:
-            print("ERROR: There is no such Name/ID")
+            print("\nERROR: There is no such Name/ID\n")
         else:
             # write the employee file again without the deleted employee
             with open('employee_file.csv', 'w') as writeFile:
                 writer = csv.writer(writeFile)
                 writer.writerows(lines)
-                break
+            print("\nemployee was deleted, look at 'employee_file.csv'.")
+            break
         
 def delete_employee_from_file():
     # a function to delete employees from file with a csv file
@@ -208,7 +210,7 @@ def delete_employee_from_file():
                                     emp_list.remove(row)
                                     deleted += 1
             if deleted == 0:
-                print("\nNothing was deleted, the employees to be deleted don't exist in 'employee_file.csv'\n")
+                print("\nNothing was deleted, the employees to be deleted don't exist in 'employee_file.csv'")
                 break
         except FileNotFoundError:
             print("\nERROR: There's no such file\n")

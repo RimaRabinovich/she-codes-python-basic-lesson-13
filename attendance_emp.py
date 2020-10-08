@@ -36,12 +36,18 @@ def search_id_in_file():
             if user_name == '':
                 raise NoSuchID()
         except NoSuchID:
-            print('ERROR: There is no such ID in the employee file.')
+            print('\nERROR: There is no such ID in the employee file.\n')
         else:
             # get current date and time
             user_date = (date.today()).strftime("%d/%m/%Y")
             user_time = (datetime.now()).strftime("%H:%M:%S")
             return user_id, user_name, user_date, user_time
+
+def mark_attendance():
+    user_id, user_name, user_date, user_time = search_id_in_file()
+    with open('attendance_file.txt', 'a') as attFile:
+        attFile.write(user_id + ' ' + user_name + ' ' + user_date + ' ' + user_time + '\n')
+    print("\nattendance was marked at 'attendance_file.txt'.")
 
 def generate_report_of_employee():
     # creates a report for a spesific employee by id
