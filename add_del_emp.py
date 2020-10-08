@@ -114,32 +114,38 @@ def add_employee_manually():
 
 def add_employee_from_file():
     # adds employees from csv file to the employee list
-        print('\n~~Add employee from file~~')
-        try:
-            file = input("Insert CSV file that contains employees to add : ")
-            with open(file, mode='r') as file:
-                csv_reader = csv.reader(file, delimiter = ',')
-                line_count = 0
-                for row in csv_reader:
-                    # skip empty rows
-                    if line_count == 0 or row == []:
-                        line_count += 1
+    print('\n~~Add employee from file~~')
+    added = 0
+    try:
+        file = input("Insert CSV file that contains employees to add : ")
+        with open(file, mode='r') as file:
+            csv_reader = csv.reader(file, delimiter = ',')
+            line_count = 0
+            for row in csv_reader:
+                # skip empty rows
+                if line_count == 0 or row == []:
+                    line_count += 1
+                    continue
+                else:
+                    # create employee object
+                    new_employee = Employee(row[0],row[1],row[2],row[3])
+                    if check_if_id_in_file(row[0]) == True:
                         continue
-                    else:
-                        # create employee object
-                        new_employee = Employee(row[0],row[1],row[2],row[3])
-                        if check_if_id_in_file(row[0]) == True:
-                            continue
-                        # add employee to employee file
-                        with open('employee_file.csv', mode='a+') as employee_file:
-                            employee_writer = csv.writer(employee_file, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
-                            employee_writer.writerow([new_employee.employee_id, new_employee.name, new_employee.phone, new_employee.age])
+                    # add employee to employee file
+                    with open('employee_file.csv', mode='a+') as employee_file:
+                        employee_writer = csv.writer(employee_file, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
+                        employee_writer.writerow([new_employee.employee_id, new_employee.name, new_employee.phone, new_employee.age])
+                        added += 1
                         line_count += 1
-        except FileNotFoundError:
-            print("\nERROR: There's no such file : {}".format(file))
+    except FileNotFoundError:
+        print("\nERROR: There's no such file : {}".format(file))
         # when a file doesn't act like csv file
-        except IndexError:
-            print("ERROR: Something is wrong, Please check your file. \neach employee mast have: ID, Name, Phone and Age with a delimiter of ','.")
+    except IndexError:
+        print("ERROR: Something is wrong, Please check your file. \neach employee mast have: ID, Name, Phone and Age with a delimiter of ','.")
+    if added > 0:
+        print("\nemployee was added, look at 'employee_file.csv'.")
+    else:
+        print("\nNothing was added, the employees to be added already exist in 'employee_file.csv'")
 
 def delete_employee_manually():
     # a function to delete employee from employee file by id/name

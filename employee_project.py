@@ -19,7 +19,6 @@ def main():
             adl.add_employee_manually()
         elif ans == 'b':
             adl.add_employee_from_file()
-            print("\nemployee was added, look at 'employee_file.csv'.")
         elif ans == 'c':
             adl.delete_employee_manually()
         elif ans == 'd':
