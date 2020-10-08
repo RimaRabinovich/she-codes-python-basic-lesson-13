@@ -67,6 +67,9 @@ def add_employee_manually():
     while True:
         try:
             emp_id = input("Enter employye's ID: ")
+            # to return to menu
+            if emp_id == 'r':
+                return
             if emp_id.isdigit() == False or len(emp_id) != 9:
                 raise ID9Digits()
             if check_if_id_in_file(emp_id) == True:
@@ -80,6 +83,8 @@ def add_employee_manually():
     while True:
         try:
             emp_name = input("Enter employye's name: ")
+            if emp_name == 'r':
+                return
             if emp_name.isalpha() == False or len(emp_name) < 2:
                 raise NameNotValid()
         except NameNotValid:
@@ -89,6 +94,8 @@ def add_employee_manually():
     while True:
         try:
             emp_phone = input("Enter employye's phone number: ")
+            if emp_phone == 'r':
+                return
             if emp_phone.isdigit() == False or len(emp_phone) != 10:
                 raise Phone10Digits()
         except Phone10Digits:
@@ -98,6 +105,8 @@ def add_employee_manually():
     while True:
         try:
             emp_age = input("Enter employye's age: ")
+            if emp_age == 'r':
+                return
             if emp_age.isdigit() == False or len(str(emp_age))>2:
                 raise AgeNotValid()
         except AgeNotValid:
@@ -118,6 +127,8 @@ def add_employee_from_file():
     added = 0
     try:
         file = input("Insert CSV file that contains employees to add : ")
+        if file == 'r':
+            return
         with open(file, mode='r') as file:
             csv_reader = csv.reader(file, delimiter = ',')
             line_count = 0
@@ -153,6 +164,8 @@ def delete_employee_manually():
     while True:
         try:
             user_input = input('Please enter employees name/id to delete: ')
+            if user_input == 'r':
+                return
             # a list that will include all the employees but the one to be deleted
             lines = list()
             count = 0
@@ -189,6 +202,8 @@ def delete_employee_from_file():
     while True:
         try:
             del_emp = input("Insert CSV File that contains employees to delete : ")
+            if del_emp == 'r':
+                return
             # a list for the employee file to be deleted
             emp_to_delete = list()
             # a list for existing employees

@@ -13,7 +13,8 @@ def main():
               'f. Generate attendance report of an employee\n'
               'g. Generate attendance report of all employees in the current month\n'
               'h. Generate attendance report of all employees who were late (after 09:30)\n'
-              "i. Exit program\n")
+              "i. Exit program\n"
+              "\n~~ insert 'r' to return to this menu ~~\n")
         ans = input("You're choice: ")
         if ans == 'a':
             adl.add_employee_manually()

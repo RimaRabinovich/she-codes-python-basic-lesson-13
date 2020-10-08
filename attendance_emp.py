@@ -13,10 +13,12 @@ class NoSuchID(Exception):
     def __str__(self):
         print('No such ID in the file')
 
-def search_id_in_file():
+def mark_attendance():
     while True:
         try:
             user_id = input("Please enter employee ID: ")
+            if user_id == 'r':
+                return
             emp_list = list()
             user_name = ''
             # creates list of employees read from file
@@ -41,13 +43,10 @@ def search_id_in_file():
             # get current date and time
             user_date = (date.today()).strftime("%d/%m/%Y")
             user_time = (datetime.now()).strftime("%H:%M:%S")
-            return user_id, user_name, user_date, user_time
-
-def mark_attendance():
-    user_id, user_name, user_date, user_time = search_id_in_file()
-    with open('attendance_file.txt', 'a') as attFile:
-        attFile.write(user_id + ' ' + user_name + ' ' + user_date + ' ' + user_time + '\n')
-    print("\nattendance was marked at 'attendance_file.txt'.")
+            with open('attendance_file.txt', 'a') as attFile:
+                attFile.write(user_id + ' ' + user_name + ' ' + user_date + ' ' + user_time + '\n')
+            print("\nattendance was marked at 'attendance_file.txt'.")
+            break
 
 def generate_report_of_employee():
     # creates a report for a spesific employee by id
@@ -55,6 +54,8 @@ def generate_report_of_employee():
     while True:
         try:
             user_id = input("Enter employee's ID: ")
+            if user_id == 'r':
+                return
             user_att_file = 'attendance_file' + '_' + user_id + '.txt'
             with open('attendance_file.txt','r') as readFile:
                 att_list = readFile.readlines()
@@ -67,7 +68,7 @@ def generate_report_of_employee():
             if len(emp_att) == 0:
                 raise NoSuchID()
         except NoSuchID:
-            print('\nERROR: There is no such ID in the employee file.\n')
+            print('\nERROR: There is no such ID in the attendance file.\n')
         except FileNotFoundError:
             print("\nERROR : There must be an 'attendance_file.csv' in order to generate employee's attendance report\n~~~No report was generated~~~\n~~~Back to main menu~~~")
             break
